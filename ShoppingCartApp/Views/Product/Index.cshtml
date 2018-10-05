@@ -1,0 +1,67 @@
+﻿@model IPagedList<ShoppingCartApp.Models.Product>
+@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.searchWord == "")
+{
+    <h2>All Products</h2>
+}
+else
+{
+    <h2>Showing Results for @ViewBag.searchWord</h2>
+}
+
+@if (Model.Count() == 0)
+{
+    <hr />
+    <h3>No results found</h3>
+}
+else
+{
+    <ul class="productGridviews">
+        @foreach (Product product in Model.OrderBy(x => x.ProductName))
+        {
+
+            <li>
+                <hr />
+                <a href=@Url.Action("Details", "Product", new { id = product.ProductID })>
+                    <div id="image" style="vertical-align:middle">
+                        <h4>
+                            @if (product.ProductImages.Count > 0)
+                            {
+                                <img src="@Url.Content(product.ProductImages.Where(x => x.Featured == true).Single().Path)" alt="category.ClassName" height="150" width="150" class="img-responsive img-thumbnail browseThumbnail">
+                            }
+                            else
+                            {
+                                <img src="~/images/imagenotavailablegrid.jpg" height="150" width="150" class="img-responsive img-thumbnail browseThumbnail">
+                            }
+                        </h4>
+                    </div>
+                </a>
+                <a href=@Url.Action("Details", "Product", new { id = product.ProductID })>
+                    <h3>@product.ProductName</h3>
+                </a>
+                <h5>@product.ShortDescription</h5>
+                @if (product.WildmanPrice != null)
+                {
+                    <h6 class="lineThrough">Price: @StringFormatting.FormattedPrice(product.Price)</h6>
+                    <h5><span class="bold">Sale Price: </span> <span class="price">@StringFormatting.FormattedPrice((decimal)product.WildmanPrice)</span></h5>
+                }
+                else
+                {
+                    <h5><span class="bold">Price: </span><span class="price">@StringFormatting.FormattedPrice(product.Price)</span></h5>
+                }
+            </li>
+        }
+    </ul>
+}
+
+<table class="myPagedList">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchWord = ViewBag.searchWord }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded})
+</table>

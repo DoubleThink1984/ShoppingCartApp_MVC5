@@ -1,0 +1,180 @@
+/**
+ *********************************************
+ * Prototype of styles for horizontal CSS-menu
+ * @data 25.01.2010
+ *********************************************
+ * (X)HTML-scheme:
+ *  <div id="menu">
+ *      <ul class="menu">
+ *          <li><a href="#" class="parent"><span>level 1</span></a>
+ *              <div><ul>
+ *                  <li><a href="#" class="parent"><span>level 2</span></a>
+ *                      <div><ul><li><a href="#"><span>level 3</span></a></li></ul></div>
+ *                  </li>
+ *              </ul></div>
+ *          </li>
+ *          <li class="last"><a href="#"><span>level 1</span></a></li>
+ *      </ul>
+ *  </div>
+ *********************************************
+ */
+
+/* menu::base */
+#menu {
+    position:relative;
+    z-index:100;
+    height:43px;
+    border-radius: 0px 0px 0px 0px;
+}
+
+#menu .menu {
+    position:absolute;
+    padding-left: 40px;
+    /*Controls menu color*/
+    /*background: url(images/header.gif) right top no-repeat;*/ 
+    background: #f79b34; 
+}
+#menu * {
+    list-style:none;
+    border:0;
+    padding:0;
+    margin:0;
+}
+#menu a {
+    display:block;
+    padding:15px 14px 4px 14px;
+    white-space:nowrap;
+    border-left: .5px solid #E98300;
+    border-right: .5px solid #E98300;
+}
+#menu li {
+    float:left;
+    background:#fff;
+}
+
+/*Dropdown List items*/
+#menu li li {
+    float:none;
+    width: 175px;
+    height: 45px;
+}
+
+#menu div {
+    visibility:hidden;
+    position:absolute;
+    background:url(images/pix.gif);
+}
+#menu div div {
+    margin:-45px 0 0 24px;
+    left:100%;
+}
+#menu div div div {
+    margin:-45px 0 0 24px;
+    left:100%;
+}
+#menu li:hover>div { visibility:visible; }
+
+/* menu::special styles */
+/* menu::level 1 */
+#menu a {
+    text-decoration:none;
+    color:whitesmoke;/*1*/
+    position:relative;
+    z-index:77;
+    font-size: 1.5em;
+}
+
+#menu a:hover {
+    /*background:url(images/header.gif) left -43px repeat-x;*/
+    color:#FFF;
+    background-color: #E98300;
+}
+#menu a:hover span { color:#FFF; }
+
+#menu li.current a {
+    /*background: transparent url(images/header_active.gif) repeat-x;*/
+    color:whitesmoke;
+    font-size: 1.5em;
+    vertical-align: central;
+}
+#menu li.current span {
+    color:#3C4955;
+}
+#menu>ul>li:hover>a {
+    /*background:url(images/header.gif) left -43px repeat-x;*/
+    /*MENU FONT*/
+    color:whitesmoke;
+}
+#menu>ul>li:hover>a span { color:#FFF; }
+#menu span {
+    text-transform:uppercase;
+    font:9px 'Lucida Grande','Lucida Sans Unicode',Arial,Verdana,sans-serif;
+    letter-spacing:0.3em;
+    text-decoration:none;
+    color:#ffffff;
+}
+#menu li { background: url(images/header.gif) left top no-repeat; }
+/* menu::level >= 2 */
+#menu ul ul {
+    width: 150px;
+}
+#menu li li{
+    /*DROPDOWN LI*/
+	background:#f9b161;
+	border-bottom:1px solid #44697D;
+    /*opacity: 0.95;*/
+    /*filter: alpha(opacity=95);*/
+    border-left: .05px solid #E98300;
+    border-right: .05px solid #E98300;
+}
+     
+#menu li li a {
+    position:static;
+    white-space:normal;
+    text-align: center;
+    color:#FFF;
+    padding:7px;
+	text-transform:none;
+	width: 100%;
+    background:#f9b161;
+    /*opacity: 0.97;*/
+    /*filter: alpha(opacity=95);*/
+    width: 175px;
+    height: 45px;
+}
+#menu li.current li a {
+    background: none;
+    color:#FFF;
+    border: none;
+}
+
+#menu li.current li span {
+    color:#FFF;
+}
+
+#menu li li a:hover { background:#006782; }
+#menu li li a span { color:#fff; line-height: 5px; padding: 10px;	}
+#menu li li a:hover span { color:#ffffff; }
+#menu li li a.parent span{background:transparent url(images/arrow.gif) no-repeat scroll right 50%; z-index:10;  }
+
+#menu li li span {
+    display:block;
+    text-transform:none;
+    padding:0px 25px 0px 0px;
+    font-size:11px;
+    letter-spacing: 0;
+}
+
+div#menu{
+    top: 2px;
+    left:0px;
+    width:100%;
+    background:#f79b34; 
+}
+
+.glyphicon-chevron-right {
+float: right;
+margin-top: 2px;
+margin-right: -6px;
+}
+

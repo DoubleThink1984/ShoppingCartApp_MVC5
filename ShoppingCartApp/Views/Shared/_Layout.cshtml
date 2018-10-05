@@ -1,0 +1,64 @@
+﻿@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My Shoppin Cart Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #44697D; background-image: none">
+        <div style="float: left; padding-right:10px; padding-left: 40px;"><a href="@Url.Action("Index","Home")"><img src="~/Content/images/logo_1971106_web.jpg" style="border-radius: 10px; padding-top: 3px;" /></a></div>
+        <div class="container" style="background-color: #44697D">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            @*@{Html.RenderAction("Menu", "Home");}*@
+            
+            <div>
+                <form class="navbar-form navbar-left" role="search" @*action='@Url.Action("Index","Product")'*@>
+                    <div class="form-group" style="padding: 3px 0px 0px 40px;">
+                        <input type="text" name="searchWord" class="form-control" placeholder="Search" style="width: 450px;">
+                    </div>
+                    <button type="submit" class="btn btn-default glyphicon glyphicon-search" formaction='@Url.Action("Index","Product")'></button>
+                </form>
+            </div>
+            <div style="float: left">
+                @Html.Partial("_LoginPartial")
+            </div>
+            <div >
+                @{Html.RenderAction("Preview", "ShoppingCart");}
+            </div>
+        </div>
+        @{Html.RenderAction("Menu", "Home");}
+    </div>
+    <div id="navBar">
+    </div>
+    <div class="container body-content" style="margin-top: 50px; " >
+        @RenderBody()
+
+
+        @*<footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>*@
+    </div>
+    @*@{Html.RenderAction("Preview", "ShoppingCart");}*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/site")
+    
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ShoppingCartApp.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Products</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<div style="float: left; margin-left: -15px;" >
+    <form class="navbar-form navbar-left" role="search" @*action='@Url.Action("Index","Product")'*@>
+        <div class="form-group">
+            <input type="text" name="searchWord" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search" formaction='@Url.Action("Index","Products")'></button>
+    </form>
+</div>
+@Html.ActionLink("Clear Search", "Index")
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MSRP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WildmanPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FeaturedProduct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShortDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MSRP)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WildmanPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FeaturedProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
+        </td>
+    </tr>
+}
+
+</table>

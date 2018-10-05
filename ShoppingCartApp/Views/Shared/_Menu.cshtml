@@ -1,0 +1,68 @@
+﻿@*Navigation Menu*@
+
+@model IEnumerable<ShoppingCartApp.Models.Category>
+
+@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+
+@*Helper method to create dynamic list of categories for menu*@
+
+@helper CreateMenu(List<Category> categories)
+{
+    string listOpen = "<li>";
+    string listClose = "</li>";
+    string ulOpen = "<ul>";
+    string ulClose = "</ul>";
+    string divOpen = "<div>";
+    string divClose = "</div>";
+
+    foreach (Category cat in categories)
+    {
+        if (cat.Subcategories.Count > 0)
+        {
+                @Html.Raw(listOpen)@Html.ActionLink(cat.ClassName, "Browse", "Category", new { id = cat.ClassId }, new { @class = "parent" })
+                @Html.Raw(divOpen)
+                @Html.Raw(ulOpen)
+
+                @CreateMenu(cat.Subcategories);
+
+                @Html.Raw(ulClose)
+                @Html.Raw(divClose)
+                @Html.Raw(listClose)
+        }
+        else
+        {
+                @Html.Raw(listOpen)@Html.ActionLink(cat.ClassName, "Browse", "Category", new { id = cat.ClassId }, new { @class = "parent" })@Html.Raw(listClose)
+        }
+    }
+}
+<div class="navbar-collapse collapse">
+    <div id="menu" class="js-active">
+        <ul class="menu nav navbar-nav">
+                @*<li style="margin-left: -40px; margin-right: 78px;"><img src="~/Content/images/CATCHlogo_Horiz_wTag_2colorCMYK.jpg" href=@Url.Action("Index", "Home") height="43" width="173" /></li>*@
+                <li class="current" >
+                    @Html.ActionLink("Categories", "Index", "Category", null, new { @class = "parent", id = "categories" })
+                    <div>
+                        <ul>
+                            @CreateMenu(ModelLists.RootCategories)
+                        </ul>
+                    </div>
+                </li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                @if (User.IsInRole("Admin"))
+            {
+                    <li>
+                        @Html.ActionLink("Administrator", "Index", "Administrator")
+                    <div>
+                        <ul>
+                            <li>@Html.ActionLink("Orders", "Index", "Orders", null, new { @class = "parent" })</li>
+                            <li>@Html.ActionLink("Categories", "Index", "Menus", null, new { @class = "parent" })</li>
+                            <li>@Html.ActionLink("Products", "Index", "Products", null, new { @class = "parent" })</li>
+                        </ul>
+                    </div>
+                </li>
+                }
+        </ul>
+    </div>
+</div>

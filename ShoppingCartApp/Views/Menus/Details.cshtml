@@ -1,0 +1,60 @@
+﻿@model ShoppingCartApp.Models.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Category</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentClassID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentClassID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        @if (Model.ImageUrl != null)
+        {
+            <dd>
+                @Html.DisplayFor(model => model.ImageUrl)
+            </dd>
+        }
+        
+
+    </dl>
+    @if (Model.ImageUrl != null)
+    {
+        <div>
+            <img src="@Url.Content(@Model.ImageUrl)" alt="@Model.ClassName" width="250" height="250" class="img-responsive img-thumbnail">
+        </div>
+    }
+    
+</div>
+<br />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ClassId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

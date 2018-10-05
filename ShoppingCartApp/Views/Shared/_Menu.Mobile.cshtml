@@ -1,0 +1,74 @@
+﻿@*Navigation Menu*@
+
+@model IEnumerable<ShoppingCartApp.Models.Category>
+
+@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div style="float: left;"><img src="~/Content/images/logo_1971106_web.jpg" style="border-radius: 10px; height: 90%; width: 90%" /></div>
+                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <form class="navbar-form " role="search" @*action='@Url.Action("Index","Product")'*@>
+                            <div class="form-group" @*style="padding: 3px 0px 0px 40px;"*@>
+                                <button type="submit" class="btn btn-default glyphicon glyphicon-search" formaction='@Url.Action("Index","Product")' style="float:right"></button>
+                                <div style="overflow: hidden; padding-right: .5em;">
+                                    <input type="text" name="searchWord" class="form-control" placeholder="Search" @*style="width: 250px;"*@>
+                                </div>
+                                
+                            </div>
+                            
+                        </form>
+                    </li>
+                    <li class="dropdown ">
+                        <a href="#" id="drop1" data-toggle="dropdown" class="dropdown-toggle" role="button">Categories <b class="caret"></b></a>
+                        <ul role="menu" class="dropdown-menu" aria-labelledby="drop1">
+                            @foreach (Category cat in ModelLists.RootCategories)
+                            {
+                                <li>@Html.ActionLink(cat.ClassName, "Browse", "Category", new { id = cat.ClassId }, null)</li>
+                            }
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="dropdown ">
+                        <a href="#" id="drop1" data-toggle="dropdown" class="dropdown-toggle" role="button">Administrator <b class="caret"></b></a>
+                        <ul role="menu" class="dropdown-menu" aria-labelledby="drop1">
+                            <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+                            <li>@Html.ActionLink("Categories", "Index", "Menus")</li>
+                            <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                        </ul>
+                    </li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

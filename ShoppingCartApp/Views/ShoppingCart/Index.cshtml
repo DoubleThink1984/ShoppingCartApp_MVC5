@@ -1,0 +1,97 @@
+﻿@model ShoppingCartApp.Presentation.CartView
+@using ShoppingCartApp.Presentation;
+@using ShoppingCartApp.Models;
+
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<h2><em>Review</em> your cart:</h2>
+@Html.ActionLink("Continue Shopping", "Index", "Category")
+<hr class="soften"/>
+
+@if (Model.CartEntries.Count == 0)
+{
+    <h3>
+        Your cart is empty.
+    </h3>
+}
+else
+{
+    foreach (Cart cart in Model.CartEntries)
+    {
+        <div class="container" id="row-@cart.ID" style="height: 130px">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a href=@Url.Action("Details", "Product", new { id = cart.Product.ProductID })>
+                        <div id="image" style="vertical-align:middle">
+                            <h3>
+                                @if (cart.Product.ProductImages.Count > 0)
+                                {
+                                    <img src="@Url.Content(cart.Product.ProductImages.Where(x => x.Featured == true).Single().Path)" alt="category.ClassName" height="80" width="80" class="img-responsive img-thumbnail CategoryImage">
+                                }
+                                else
+                                {
+                                    <img src="~/images/imagenotavailablegrid.jpg" height="80" width="80" class="img-responsive img-thumbnail CategoryImage">
+                                }
+                            </h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-4">
+                    <a href=@Url.Action("Details", "Product", new { id = cart.Product.ProductID })>
+                        <h3>@cart.Product.ProductName</h3>
+                    </a>
+                    @if (cart.Product.WildmanPrice != null)
+                    {
+                        <h5 class="lineThrough">Price: @StringFormatting.FormattedPrice(cart.Product.Price)</h5>
+                        <h4><span class="bold">Our Price: </span> <span class="price">@StringFormatting.FormattedPrice((decimal)cart.Product.WildmanPrice)</span></h4>
+                    }
+                    else
+                    {
+                        <h4><span class="bold">Price: </span><span class="price">@StringFormatting.FormattedPrice(cart.Product.Price)</span></h4>
+                    }
+                </div>
+                @{  int? maxQuantity = cart.Product.Quantity;
+                    if (!cart.Product.KeepInventory || !cart.Product.NoBackOrders)
+                    {
+                        maxQuantity = 1000;
+                    }
+                }
+                <div class="col-sm-4">
+                    <div style="width: 75px;">
+                        <label for="Quantity">Quantity:</label>
+                        @if (cart.Product.LimitOne)
+                        {
+                            <input class="form-control RemoveLink" data-val="true"
+                                   id="item-count-@cart.ID" min="1"
+                                   max=1
+                                   data-id="@cart.ID" name="Quantity" value=@cart.Quantity type="number">
+                        }
+                        else
+                        {
+                            <input class="form-control RemoveLink" data-val="true"
+                                   id="item-count-@cart.ID" min="1"
+                                   max=@maxQuantity
+                                   data-id="@cart.ID" name="Quantity" value=@cart.Quantity type="number">
+                        }
+                    </div>
+                    <div class="delete">
+                        <a href="#" class="DeleteLink glyphicon glyphicon-trash"
+                           data-id="@cart.ID" title="Remove Item">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="soften" id="hr-@cart.ID" />
+    }
+    @Html.ActionLink("Empty Cart", "ClearCart", null, new { @class = "btn btn-sm btn-default" })
+    <div id="cart-total-container">
+        <h2 id="cart-total">
+            Subtotal: @Model.CartTotal
+        </h2>
+        @Html.ActionLink("Proceed to Checkout", "Index", "Checkout", null, new { @class = "btn btn-success btn-default btn-lg", @id = "checkoutButton" })
+    </div>
+}
+

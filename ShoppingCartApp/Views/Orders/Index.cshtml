@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ShoppingCartApp.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+
+<div style="float: left; margin-left: -15px;">
+    <form class="navbar-form navbar-left" role="search" @*action='@Url.Action("Index","Product")'*@>
+        <div class="form-group">
+            <input type="text" name="searchID" class="form-control" placeholder="Search Order ID">
+        </div>
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search" formaction='@Url.Action("Index","Orders")'></button>
+        @Html.ActionLink("Clear Search", "Index")
+    </form>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.archived)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.archived)
+        </td>
+        <td>
+            @if (!item.archived)
+            {
+                @Html.ActionLink("Review", "Details", new { id = item.OrderID }, new { @class = "btn btn-success btn-sm" })
+            }
+            else
+            {
+                @Html.ActionLink("Details", "Details", new { id = item.OrderID }) 
+            }
+            | @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
+        </td>
+    </tr>
+}
+
+</table>

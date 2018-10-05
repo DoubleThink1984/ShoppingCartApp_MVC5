@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ShoppingCartApp.Models.ProductImages>
+@using ShoppingCartApp.Models;
+
+<div>
+    <h4>Product Images</h4>
+
+    @if (Model != null)
+    {
+        <ul class="gridviews">
+            @foreach (ProductImages image in Model)
+            {
+            <li>
+
+                @if (image.Path != null)
+                {
+                    <div id="image" style="vertical-align:middle">
+                        <p>
+                            <img src="@Url.Content(image.Path)" alt="Image @image.ProductID" class="img-responsive img-thumbnail" style="vertical-align:text-top">
+                        </p>
+                    </div>
+                    if (image.Featured == true)
+                    {
+                        <h4>Primary Image</h4>
+                    }
+                    else
+                    {
+                        @Ajax.ActionLink("Make Primary Image", "PrimaryImage", new { productID = image.ProductID, id = image.ID }, new AjaxOptions()
+                       {
+                           HttpMethod = "Get",
+                           UpdateTargetId = "editImage",
+                           InsertionMode = InsertionMode.Replace
+                       },
+                                new { @class = "btn btn-default" });
+                    }
+
+                    @Ajax.ActionLink("Delete Image", "DeleteImage", new { id = image.ID, productID = image.ProductID }, new AjaxOptions()
+                        {
+                            HttpMethod = "Get",
+                            UpdateTargetId = "editImage",
+                            InsertionMode = InsertionMode.Replace
+                        },
+                                new { @class = "btn btn-default" });
+                    }
+            </li>
+            }
+    </ul>
+    }
+</div>

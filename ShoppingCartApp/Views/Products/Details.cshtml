@@ -1,0 +1,200 @@
+﻿@model ShoppingCartApp.Models.Product
+@using ShoppingCartApp.Models;
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LongDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LongDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MSRP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MSRP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WildmanPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WildmanPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Width)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Width)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Height)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Height)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParcelPost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParcelPost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InactiveProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InactiveProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NoBackOrders)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NoBackOrders)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LimitOne)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LimitOne)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.New)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.New)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KeepInventory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KeepInventory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SpecialOrder)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SpecialOrder)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FeaturedProduct)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FeaturedProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClassID)
+        </dd>
+
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<ul class="gridviews">
+    @if (Model.ProductImages != null)
+    { 
+        foreach (ProductImages image in Model.ProductImages.OrderByDescending(x => x.Featured))
+        {
+            <li>
+
+                @if (image.Path != null)
+                {
+                    <div id="image" style="vertical-align:middle">
+                        <p>
+                            <img src="@Url.Content(image.Path)" alt="Image @image.ProductID" class="img-responsive img-thumbnail" style="vertical-align:text-top">
+                        </p>
+                    </div>
+                }
+            </li>
+        }
+    }
+</ul>

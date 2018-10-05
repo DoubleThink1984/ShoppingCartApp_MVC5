@@ -1,0 +1,354 @@
+﻿@model ShoppingCartApp.Presentation.ProductDetailsView
+@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+@{
+    ViewBag.Title = "Details";
+    Category productCat = ModelLists.Categories.Where(x => x.ClassId == Model.Product.ClassID).Single();
+    List<Category> breadcrumb = new List<Category>();
+    List<Category> categoriesList = ModelLists.Categories;
+    breadcrumb.Insert(0, productCat);
+    Category parentCat = productCat;
+}
+@while (parentCat.ParentClassID != null)
+{
+    parentCat = categoriesList.Where(parent => parent.ClassId == parentCat.ParentClassID).Single();
+    breadcrumb.Insert(0, parentCat);
+}
+<div class="fixedBreadcrumb">
+    <ol class="breadcrumb">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="active">@Html.ActionLink("Categories", "Index", "Category")</li>
+        @foreach (Category cat in breadcrumb)
+        {
+            <li>@Html.ActionLink(cat.ClassName, "Browse", "Category", new { id = cat.ClassId }, null)</li>
+        }
+        <li class="active">@Model.Product.ProductName</li>
+    </ol>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <div style="float: right">
+        @Html.ActionLink("Edit", "Edit", "Products", new { id = Model.Product.ProductID, returnUrl = Request.Url.AbsoluteUri }, null) |
+        @Html.ActionLink("Delete", "Delete", "Products", new { id = Model.Product.ProductID }, null)
+    </div>
+    <br />
+}
+
+<div class="container detailsContainer" style="height: 400px">
+    <div class="row">
+        <div class="col-md-4">
+            <div id="image" style="vertical-align:middle">
+                @*<h3>*@
+                    @if (Model.Product.ProductImages.Count > 0)
+                    {
+                        <div class="mag">
+                            <img data-toggle="magnify" src="@Url.Content(Model.Product.ProductImages.Where(x => x.Featured == true).Single().Path)" alt="category.ClassName" class="img-responsive CategoryImage" id="detailsPic">
+                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/images/imagenotavailablegrid.jpg" class="img-responsive CategoryImage">
+                    }
+                @*</h3>*@
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1>@Model.Product.ProductName</h1>
+            <hr class="soften">
+            <h2>@Model.Product.ShortDescription</h2>
+            <h3>@Model.Product.LongDescription</h3>
+            @if (Model.Product.WildmanPrice != null)
+            {
+                <h3 class="lineThrough">Price: @StringFormatting.FormattedPrice(Model.Product.Price)</h3>
+                            <h3><span class="bold" >Sale Price: </span> <span class="price">@StringFormatting.FormattedPrice((decimal)Model.Product.WildmanPrice)</span></h3>
+            }
+            else
+            {
+                <h3><span class="bold">Price: </span><span class="price">@StringFormatting.FormattedPrice(Model.Product.Price)</span></h3>
+            }
+        </div>
+        
+        <div class="col-md-2">
+            
+            @{ int? quantity;
+                if (Model.Quantity != null)
+                {
+                    quantity = Model.Quantity;
+                }
+                else
+                {
+                    quantity = Model.Product.Quantity;
+                }
+            }
+
+            @using (Html.BeginForm("AddToCart", "ShoppingCart"))
+            {
+                @Html.AntiForgeryToken();
+
+                if (Model.Product.LimitOne)
+                {
+                    <h5 style="color: indianred">Limit: 1 item per Order</h5>
+                }
+
+                if (!Model.Product.KeepInventory)
+                {
+                    if (Model.Product.Quantity <= 0 && Model.Product.NoBackOrders && Model.Product.KeepInventory)
+                    {
+                        //Do nothing
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <select name="quantity" class="form-control quantitySelect">
+
+                                @if (Model.Product.LimitOne)
+                                {
+                                    if (Model.Quantity == 0)
+                                    {
+                                        if (Model.Product.Quantity <= 0 && !Model.Product.NoBackOrders && !Model.InCart)
+                                        {
+                                            <option value="1">1</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0">Cart Full</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="1">1</option>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 1; i < 51; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    }
+                }
+                else if (Model.Product.KeepInventory && !Model.Product.NoBackOrders && (Model.Quantity ?? 0) == 0)
+                {
+                    if (Model.InCart && !Model.Product.NoBackOrders /*|| !Model.Product.NoBackOrders*/)
+                    {
+                        if (Model.Product.Quantity <= 0)
+                        {
+                            <h3>Out of Stock</h3>
+
+                                <button type="button" class="btn-info btn-default btn-sm" id="backButton">
+                                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                    Back
+                                </button>
+
+                                <br />
+                                <br />
+                        }
+                        else
+                        {
+                            <select name="quantity" class="form-control quantitySelect">
+                            @if (Model.Product.LimitOne)
+                            {
+                            if (Model.Quantity == 0)
+                            {
+                                    <option value="0">Cart Full</option>
+                                }
+                                else
+                                {
+                                    <option value="1">1</option>
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 1; i < 51; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            }
+                            </select>
+                        }
+                    }
+                    else if (Model.InCart)
+                    {
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <select name="quantity" class="form-control quantitySelect">
+                                <option value="0">Cart Full</option>
+                            </select>
+                        </div>
+                    }
+                    else
+                    {
+                        if (!Model.Product.NoBackOrders)
+                        {
+                            <select name="quantity" class="form-control quantitySelect">
+                                @if (Model.Product.LimitOne)
+                                {
+                                    if (Model.Quantity == 0)
+                                    {
+                                        if (!Model.Product.NoBackOrders)
+                                        {
+                                            <option value="1">1</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0">Cart Full</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="1">1</option>
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 1; i < 51; i++)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <h3>Out of Stock</h3>
+
+                            <button type="button" class="btn-info btn-default btn-sm" id="backButton">
+                                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                                Back
+                            </button>
+
+                            <br />
+                            <br />
+                        }
+                    }
+                }
+                else
+                {
+                    if (Model.Product.Quantity == null || Model.Product.KeepInventory && Model.Product.NoBackOrders && Model.Product.Quantity <= 0)
+                    {
+                        <h3>Out of Stock</h3>
+
+                        <button type="button" class="btn-info btn-default btn-sm" id="backButton">
+                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                            Back
+                        </button>
+
+                        <br />
+                        <br />
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+
+                            @if (quantity == 0 && Model.Product.NoBackOrders)
+                            {
+                                <select name="quantity" class="form-control quantitySelect">
+                                    <option value="0">Cart Full</option>
+                                </select>
+                            }
+                            else if (!Model.Product.NoBackOrders)
+                            {
+                                <select name="quantity" class="form-control quantitySelect">
+                                    @if (Model.Product.LimitOne)
+                                    {
+                                    if (Model.Quantity == 0)
+                                    {
+                                        <option value="0">Cart Full</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="1">1</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 1; i < 51; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    }
+
+                                </select>
+                            }
+                            else
+                            {
+                                if (Model.Product.LimitOne)
+                                {
+                                    <select name="quantity" class="form-control quantitySelect">
+                                        <option value="1">1</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select name="quantity" class="form-control quantitySelect">
+                                        @for (int i = 1; i < quantity + 1; i++)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                }
+                            }
+                        </div>
+                    }
+                }
+
+                @*if (!Model.Product.KeepInventory)
+                {
+                    if (!Model.Product.NoBackOrders)
+                    {
+                        <p>Backorders Available</p>
+                    }
+                }*@
+            if (Model.Product.Quantity != null && Model.Product.Quantity > 0 && Model.Product.NoBackOrders && Model.Product.KeepInventory)
+            {
+                <h6>(@Model.Product.Quantity Remaining in Stock)</h6>
+            }
+            else if (Model.Product.Quantity != null && Model.Product.Quantity > 0 && !Model.Product.NoBackOrders)
+            {
+                if (Model.Product.KeepInventory)
+                {
+                    <h6>(@Model.Product.Quantity Remaining in Stock)</h6>
+                    <p>Backorders Available</p>
+                }
+            }
+            else if (!Model.Product.NoBackOrders)
+            {
+                if (Model.Product.KeepInventory)
+                {
+                    if ((Model.Product.Quantity ?? 0) <= 0)
+                    {
+                        <h6>(@Model.Product.Quantity Remaining in Stock)</h6>
+                    }
+                    <p>Backorders Available</p>
+                }
+            }
+
+                <input type="hidden" name="id" value=@Model.Product.ProductID>
+                //Disable button if cart at max products available
+                if (Model.InCart && Model.Product.LimitOne || quantity <= 0 && Model.Product.KeepInventory && Model.Product.NoBackOrders ||
+                    quantity <= 0 && Model.Product.LimitOne && Model.Product.NoBackOrders ||
+                    Model.Product.KeepInventory && Model.Product.NoBackOrders && (Model.Quantity ?? 0) <= 0 && Model.Product.NoBackOrders)
+                {
+                    <button type="submit" disabled class="btn-success btn-default btn-lg">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add To Cart
+                    </button>
+                }
+                else
+                {
+                    <button type="submit" class="btn-success btn-default btn-lg">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add To Cart
+                    </button>
+                }
+            }
+        </div>
+    </div>
+</div>

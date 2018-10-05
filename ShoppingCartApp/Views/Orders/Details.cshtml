@@ -1,0 +1,303 @@
+﻿@model ShoppingCartApp.Presentation.OrderDetailView
+@using ShoppingCartApp.Presentation;
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Order Details</h2>
+<hr class="soften" />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="bold">Order</h4>
+            <hr class="soften" />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.OrderID)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.OrderID)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.UserName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.UserName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.OrderDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.OrderDate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.archived)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.archived)
+                </dd>
+
+                <hr class="soften" />
+                <h4 class="bold">Billing</h4>
+                <hr class="soften" />
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.Addr1)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.Addr1)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.City)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.City)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.State)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.State)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.PostalCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.PostalCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.Country)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.Country)
+                </dd>
+
+                <br />
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.CardHolderName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.CardHolderName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.CardType)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.CardType)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.CardNumber)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.CardNumber)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.CVC)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.CVC)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ExpirationDate)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ExpirationDate)
+                </dd>
+
+                <hr class="soften" />
+                <h4 class="bold">Shipping</h4>
+                <hr class="soften" />
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ShipName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipAddr1)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ShipAddr1)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipCity)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ShipCity)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipState)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ShipState)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipPostalCode)
+                </dt>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipCountry)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ShipCountry)
+                </dd>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.Country)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ParcelPost)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ParcelPost)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.ShipVia)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.ShipVia)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.email)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.email)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.phone)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.phone)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Order.Comments)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Order.Comments)
+                </dd>
+
+            </dl>
+        </div>
+        <div class="col-lg-6">
+            <h4 class="bold">Order Products</h4>
+            <hr class="soften" />
+            <dl class="dl-horizontal">
+                @foreach (var item in Model.OrderItems)
+                {
+                    <dt>
+                        <span class="bold">Product Name</span>
+                    </dt>
+
+                    <dd>
+                        @item.OrderProduct.ProductName
+                    </dd>
+
+                    <dt>
+                        <span class="bold">Product ID</span>
+                    </dt>
+
+                    <dd>
+                        @item.OrderProduct.ProductID
+                    </dd>
+
+                    <dt>
+                        <span class="bold">Quantity</span>
+                    </dt>
+
+                    <dd>
+                        @item.Quantity 
+                    </dd>
+
+                    <dt>
+                        <span class="bold">Product Price</span>
+                    </dt>
+
+                    <dd>
+                        @StringFormatting.FormattedPrice((decimal)item.Cost)
+                    </dd>
+
+                    <hr class="soften" />
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Order.Total)
+                    </dt>
+
+                    <dd>
+                        @StringFormatting.FormattedPrice((decimal)Model.Order.Total)
+                    </dd>
+                }
+            </dl>
+        </div>
+    </div>
+</div>
+@if (!Model.Order.archived)
+{
+    using (Html.BeginForm("RegisterOrder", "Orders", FormMethod.Post,
+                                      new { enctype = "form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="id" value= @Model.Order.OrderID>
+            <input type="submit" value="Process" class = "btn btn-success"/>
+    }
+}
+<br />
+<br />
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Order.OrderID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

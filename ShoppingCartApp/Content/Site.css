@@ -1,0 +1,312 @@
+﻿/*
+    Laptop/Desktop
+    ****************************************
+*/
+@media only screen and (max-width: 2000px) {
+
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+
+    /* Set padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    /*Container*/
+    .container {
+        width: 80%;
+    }
+
+    .detailsContainer {
+        width: 100%;
+    }
+
+    .quantitySelect {
+        width: 110px;
+    }
+
+    /*.productDiv{
+height: 20px;
+}*/
+
+    .DeleteLink {
+        color: darkgrey;
+    }
+
+    #carouselPlacement {
+        padding-top: 20px;
+    }
+
+    /* Override the default bootstrap behavior where horizontal description lists 
+will truncate terms that are too long to fit in the left column 
+*/
+    .dl-horizontal dt {
+        white-space: normal;
+    }
+
+    hr.soften {
+        height: 1px;
+        background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgb(68, 105, 125), rgba(0,0,0,0));
+        background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgb(68, 105, 125), rgba(0,0,0,0));
+        background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgb(68, 105, 125), rgba(0,0,0,0));
+        background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgb(68, 105, 125), rgba(0,0,0,0));
+        border: 0;
+        /*background-color: rgb(68, 105, 125);*/
+    }
+
+    #detailsPic {
+        border-radius: 5px;
+        border: solid rgb(230, 230, 230);
+    }
+
+    hr.hrbold {
+        border: 0;
+        height: 1px;
+        background: #333;
+    }
+
+    .tableBorder {
+        border-top: 1px solid black;
+    }
+
+    .form-control.checkbox {
+        width: 5%;
+    }
+
+    ul.gridviews li {
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+    ul.productGridviews{
+        list-style-type: none;
+        list-style-position:inside;
+        margin-left:0;
+        padding-left:0;
+    }
+    ul.ComicGridviews li {
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+
+    ul.productGridviews li {
+        width: 24%;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 70%;
+        margin: auto;
+    }
+
+    .carouselCaption {
+        color: #c8c8c8;
+    }
+
+    #cart-total {
+        float: right;
+        padding-right: 15%;
+    }
+
+    #cart-total-container {
+        width: 500px;
+        float: right;
+        padding-right: 15%;
+    }
+
+    /*
+    Positioning of Delete button on shopping cart summary page.
+*/
+    .delete {
+        margin-top: 10%;
+    }
+
+    #checkoutButton {
+        float: right;
+        margin-right: 15%;
+    }
+
+    /*#categories{
+color: red;
+}*/
+
+    li > .current {
+        color: red;
+    }
+
+    .browseThumbnail {
+        vertical-align: text-bottom;
+    }
+
+    .lineThrough {
+        text-decoration: line-through;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .image {
+        vertical-align: middle;
+    }
+
+    /* Image on Category Index page and Product Detail page*/
+    .CategoryImage {
+        vertical-align: text-bottom;
+    }
+
+    .cartTotalParagraph {
+        float: right;
+        color: white;
+        margin-top: 5px;
+        margin-right: 5px;
+        text-align: center;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .carousel-caption {
+        color: White;
+    }
+
+    .carousel-caption {
+        top: 0;
+        bottom: auto;
+    }
+
+    /*price highlighted red*/
+    .price {
+        color: #bf3737;
+        font-weight: bold;
+    }
+
+    /* View Cart button in _Preview partial view of Shopping Cart controller*/
+    #cartItems {
+        float: right;
+        border-radius: 0px 0px;
+        margin-top: 3px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    /*.checkout{
+background-image: linear-gradient(#faec9c, #f0c14b, #d47500 89%, #f0c14b);
+}
+
+.checkout:hover{
+background-image: linear-gradient(#f5e377, #d8ad43, #be6900 89%, #d8ad43);
+}*/
+
+    .navbar-inverse {
+        text-shadow: none;
+    }
+
+
+    /*
+Fixed postion breadcrumb
+*/
+
+    /*.fixedBreadcrumb{
+position: fixed;
+width: 100%;
+padding-top: -3px;
+}
+
+.logoRelative{
+padding-top: 5%;
+}*/
+
+    .mag {
+        /*width:200px;*/
+        margin: 0 auto;
+        float: none;
+    }
+
+        .mag img {
+            max-width: 100%;
+        }
+
+
+
+    .magnify {
+        position: relative;
+        cursor: none;
+    }
+
+    .magnify-large {
+        position: absolute;
+        display: none;
+        width: 900px;
+        height: 500px;
+        -webkit-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.85), 0 0 7px 7px rgba(0, 0, 0, 0.25), inset 0 0 40px 2px rgba(0, 0, 0, 0.25);
+    }
+}
+/*
+    Tablet
+    ****************************************
+*/
+@media only screen and (max-width: 1024px)
+{
+    .container {
+        width: 100%;
+    }
+    #carouselPlacement {
+        padding-top: 0px;
+    }
+    ul.productGridviews li {
+        width: 32%;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+}
+/*
+    Phone
+    ****************************************
+*/
+@media only screen and (max-width: 480px)
+{
+    .container {
+        width: 100%;
+    }
+    #carouselPlacement {
+        padding-top: 0px;
+    }
+    ul.productGridviews li {
+        width: 100%;
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 2px;
+        margin-bottom: 2px;
+        text-align: center;
+        list-style-type: none;
+        list-style-position:inside;
+        margin-left:0;
+        padding-left:0;
+    }
+    ul.productGridviews{
+        list-style-type: none;
+        list-style-position:inside;
+        margin-left:0;
+        padding-left:0;
+    }
+}

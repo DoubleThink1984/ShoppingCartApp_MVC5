@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ShoppingCartApp.Models.Category>
+
+@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<div class="fixedBreadcrumb">
+    <ol class="breadcrumb">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li class="active">@ViewBag.Title</li>
+    </ol>
+</div>
+
+<h2>Categories</h2>
+
+<ul class="ComicGridviews">
+    @foreach (Category category in ModelLists.RootCategories)
+    {
+        
+        if (category.ImageUrl != null)
+        {
+            <li>
+                <a href="Category/Browse/@category.ClassId">
+                    <div class="image">
+                        <img src="@Url.Content(category.ImageUrl)" alt="category.ClassName" class="img-responsive img-thumbnail categoryImage">
+                    </div>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a>@Html.ActionLink(category.ClassName, "Browse", "Category", new {id = category.ClassId}, null)</a>
+            </li>
+        }
+    }
+</ul>

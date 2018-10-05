@@ -1,0 +1,4 @@
+﻿@model ShoppingCartApp.Presentation.CartPreview
+
+    @Html.ActionLink("View Cart (" + Model.CartItemCount + " items)", "Index", "ShoppingCart", null, new { @class = "btn btn-warning btn-default btn-lg checkout", @id = "cartItems" })
+    <p class="cartTotalParagraph"><span class="underline">Total </span><br /><span id="cartTotal">@Model.CartTotal</span></p>

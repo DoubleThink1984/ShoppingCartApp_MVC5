@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ShoppingCartApp.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categories</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentClassID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th></th>
+    </tr>
+@{ int? nulls = null;}
+@foreach (var item in Model) {
+    <tr>
+        @if (item.ParentClassID == nulls)
+        {
+            <td>
+                <strong><u>@Html.DisplayFor(modelItem => item.ClassName)</u></strong>
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+        }
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentClassID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageUrl)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ClassId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ClassId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ClassId })
+        </td>
+    </tr>
+}
+</table>

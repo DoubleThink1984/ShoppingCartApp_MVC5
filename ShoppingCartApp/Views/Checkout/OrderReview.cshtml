@@ -1,0 +1,111 @@
+﻿@model ShoppingCartApp.Presentation.OrderDetailView
+@using ShoppingCartApp.Models;
+@using ShoppingCartApp.Presentation;
+
+@{
+    ViewBag.Title = "OrderReview";
+}
+
+<h2>Order Confirmation</h2>
+
+<h5><span class="bold">Username:  </span>@User.Identity.Name</h5>
+<h5><span class="bold">Order Number:  </span>@Model.Order.OrderID</h5>
+<h5><span class="bold">Order Date:  </span>@Model.Order.OrderDate</h5>
+<hr class="soften" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="bold">Items Ordered</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    @foreach (OrderItem item in Model.OrderItems)
+                    {
+                        <tr>
+                            <td>@item.OrderProduct.ProductName</td>
+                            <td>@item.OrderProduct.ShortDescription</td>
+                            <td>@item.Quantity</td>
+                            @if (item.OrderProduct.WildmanPrice != null)
+                            {
+                                <td>@StringFormatting.FormattedPrice((decimal)item.OrderProduct.WildmanPrice)</td>
+                            }
+                            else
+                            {
+                                <td>@StringFormatting.FormattedPrice((decimal)item.OrderProduct.Price)</td>
+                            }
+                        </tr>
+                    }
+                    <tr class="success">
+                        <td></td>
+                        <td></td>
+                        <td>Total: </td>
+                        <td>@StringFormatting.FormattedPrice((decimal)Model.Order.Total)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr class="soften" />
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="bold">Payment Information</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Billing Address</th>
+                        <th>Payment Method</th>
+                    </tr>
+                        <tr>
+                            <td>
+                            @Model.Order.Name<br />
+                            @Model.Order.Addr1 <br />
+                            @Model.Order.City, @Model.Order.State, @Model.Order.PostalCode <br />
+                            @Model.Order.Country
+                            </td>
+                            <td>
+                                <span class="bold">Card Type: </span> @Model.Order.CardType<br />
+                                <span class="bold">Card Number: </span>@Model.Order.CardNumber <br />
+                            </td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr class="soften" />
+    <div class="row">
+        <div class="col-lg-6">
+            <h4 class="bold">Shipping Details</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>Shipping Address:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Model.Order.ShipName <br />
+                            @Model.Order.ShipAddr1 <br />
+                            @Model.Order.ShipCity, @Model.Order.ShipState, @Model.Order.ShipPostalCode <br />
+                            @Model.Order.ShipCountry
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="soften" />
+
+
+
+<p>
+    @Html.ActionLink("Continue Shopping", "Index", "Category", null, null)
+</p>
